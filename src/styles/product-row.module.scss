@@ -1,0 +1,35 @@
+.custom_table_row {
+  cursor: pointer;
+
+  & + tr {
+    cursor: pointer;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #f1f3f5 !important;
+    }
+
+    > td {
+      border-bottom: none !important;
+    }
+  }
+
+  &:nth-child(odd) {
+    background-color: rgba(231, 231, 231, 0.82);
+
+    & + tr {
+      background-color: rgba(231, 231, 231, 0.82);
+    }
+  }
+
+  > td {
+    border-bottom: none !important;
+  }
+
+  &:hover {
+    background: #f1f3f5 !important;
+
+    & + tr {
+      background-color: #f1f3f5 !important;
+    }
+  }
+}
