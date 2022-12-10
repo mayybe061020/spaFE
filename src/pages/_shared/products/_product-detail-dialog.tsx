@@ -117,7 +117,6 @@ const ProductDetailDialog = ({
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    reset();
     onClosed && onClosed();
   };
 

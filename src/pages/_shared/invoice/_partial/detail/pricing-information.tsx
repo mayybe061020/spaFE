@@ -10,7 +10,7 @@ import useInvoicePricingOf from "../../../../../hooks/invoice-pricing.hook";
 import { useEffect } from "react";
 
 type PricingInformationProps = {
-  item: BasePriceModel;
+  item?: BasePriceModel;
   addons: BillingProductItem[];
 
   onChange?: (

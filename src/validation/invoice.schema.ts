@@ -21,7 +21,7 @@ export const invoiceCreateSchema = z.object({
   customerId: idDbSchema,
   priceBeforeTax: priceSchema,
   priceAfterTax: priceSchema,
-  itemId: idDbSchema,
-  itemType: invoiceItemTypeSchema,
+  itemId: idDbSchema.optional(),
+  itemType: invoiceItemTypeSchema.optional(),
   addons: z.array(invoiceCreateItemSchema).min(0),
 });

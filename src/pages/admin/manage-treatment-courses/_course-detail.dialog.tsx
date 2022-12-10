@@ -322,7 +322,7 @@ const CourseDetailDialog: FC<
                       fit={"cover"}
                       className={"rounded border"}
                       src={linkImage(file)}
-                      alt="course image"
+                      alt="Ảnh liệu trình"
                     />
                   )}
                 />
@@ -365,7 +365,7 @@ const CourseDetailDialog: FC<
                 "mb-2 select-none border-l pl-2 text-lg font-semibold uppercase text-gray-500"
               }
             >
-              Products
+              Danh sách sản phẩm
               <small className={"block w-full text-xs text-gray-400"}>
                 Sản phẩm đi kèm
               </small>

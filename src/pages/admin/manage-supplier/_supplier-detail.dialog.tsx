@@ -62,14 +62,11 @@ const SupplierDetailDialog = ({
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    reset();
     onClosed && onClosed();
   };
 
-  const submit = (formData: object) => {
+  const submit = (formData: object) =>
     DialogSubmit(mode, dirtyFields, onClosed, data)(formData);
-    reset();
-  };
 
   return (
     <Modal

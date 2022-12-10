@@ -1,16 +1,16 @@
 import { BasePriceModel } from "./_price.model";
 import { ProductModel } from "./product.model";
-import {CourseModel} from "./course.model";
+import { CourseModel } from "./course.model";
 
 export interface ServiceModel extends BasePriceModel {
   id: number;
   name: string;
   description: string;
   duration: number;
+  count?: number;
+  timeOfUse?: number;
   image?: string;
-
   products: ProductInService[];
-
   type?: string;
 }
 
@@ -39,7 +39,7 @@ export interface ServiceUpdateEntity
 }
 
 export interface SearchServicesModel {
-  courses: CourseModel[],
-  products: [] | null,
-  services: ServiceModel[]
+  courses: CourseModel[];
+  products: [] | null;
+  services: ServiceModel[];
 }

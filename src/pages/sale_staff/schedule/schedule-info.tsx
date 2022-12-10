@@ -1,7 +1,7 @@
-import ManageBooking from "../../_shared/work-appointment/manage-booking";
+import ManageBooking from "../../_shared/schedule/manage-booking";
 
 const ScheduleInfo = () => {
-    return <ManageBooking></ManageBooking>
-}
+  return <ManageBooking></ManageBooking>;
+};
 
-export default ScheduleInfo
+export default ScheduleInfo;

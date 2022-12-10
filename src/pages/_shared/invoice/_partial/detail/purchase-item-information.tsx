@@ -9,11 +9,15 @@ import { IconArrowDown } from "@tabler/icons";
 import { linkImage } from "../../../../../utilities/image.helper";
 
 type props = {
-  item: InvoiceModel["item"];
-  itemType: InvoiceModel["itemType"];
+  item?: InvoiceModel["item"];
+  itemType?: InvoiceModel["itemType"];
 };
 
 const PurchaseItemInformation = ({ itemType, item }: props) => {
+  if (!item) {
+    return <></>;
+  }
+
   return (
     <div className={"flex flex-col space-y-2"}>
       <h1

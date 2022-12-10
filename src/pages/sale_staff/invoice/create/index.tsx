@@ -26,8 +26,8 @@ const SaleStaffInvoiceCreate: AppPageInterface = () => {
   const router = useRouter();
   const { previousUrl, schedule_id } = router.query;
 
-  const [addons, setAddons] = useState<BillingProductItem[]>([]);
-  const [item, setItem] = useState<BillingItemData | null>();
+  const [_, setAddons] = useState<BillingProductItem[]>([]);
+  const [item, setItem] = useState<BillingItemData>();
 
   const { data: schedule, isLoading } = useScheduleDetailQuery(
     Number(schedule_id as string),
@@ -139,7 +139,7 @@ const SaleStaffInvoiceCreate: AppPageInterface = () => {
             <PurchaseItemInformationEditable
               onSelected={(e) => {
                 control.setValue("itemId", e?.id as number);
-                setItem(e);
+                setItem(e ?? undefined);
               }}
             />
           );
@@ -169,13 +169,11 @@ const SaleStaffInvoiceCreate: AppPageInterface = () => {
           }
 
           return (
-            item && (
-              <PricingInformation
-                item={item}
-                addons={addons}
-                onChange={onPriceCalculation}
-              />
-            )
+            <PricingInformation
+              item={item}
+              addons={addons}
+              onChange={onPriceCalculation}
+            />
           );
         }}
         footerRender={(a) => (

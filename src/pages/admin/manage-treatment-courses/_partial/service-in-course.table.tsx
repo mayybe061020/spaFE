@@ -89,7 +89,7 @@ const ServiceInCourseTable: FC<TableProps> = ({
                 color={"green"}
                 fullWidth
               >
-                Product
+                Sản phẩm
               </Button>
             </td>
           </tr>

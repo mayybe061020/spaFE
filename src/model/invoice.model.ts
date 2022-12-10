@@ -48,14 +48,16 @@ export type InvoiceCreateEntity = Omit<
   | "staff"
   | "createDate"
   | "item"
+  | "itemType"
   | "addons"
   | "status"
   | "approvedDate"
   | "customer"
 > & {
   scheduleId?: number;
-  itemId: number;
-  customerId: number;
+  itemId?: number;
+  itemType?: "service" | "course";
+  customerId?: number;
   addons: BillingProductCreateEntity[];
 };
 

@@ -5,7 +5,6 @@ import {
   Button,
   Divider,
   Image,
-  Image as MantineImage,
   Modal,
   NumberInput,
   Table,
@@ -17,8 +16,6 @@ import DialogDetailAction from "../../../components/dialog-detail-action";
 import FormErrorMessage from "../../../components/form-error-message";
 import { DatePicker } from "@mantine/dates";
 import { IconPercentage, IconPlus } from "@tabler/icons";
-import BtnSingleUploader from "../../../components/btn-single-uploader";
-import { ACCEPTED_IMAGE_TYPES } from "../../../const/file.const";
 import { MAX_PRICE } from "../../../const/_const";
 import {
   formatterNumberInput,
@@ -86,13 +83,12 @@ const ServiceDetailDialog: FC<
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    reset();
     onClosed && onClosed();
   };
 
   return (
     <Modal
-      onClose={() => onClosed && onClosed()}
+      onClose={() => reset()}
       opened={opened}
       closeOnClickOutside={false}
       withCloseButton={false}

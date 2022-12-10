@@ -76,7 +76,7 @@ export default function RowTable(props: RowProps) {
       </td>
 
       <td className={"text-center"}>
-        {formatPrice(props.data.priceBeforeTax)} VND
+        {formatPrice(props.data.priceAfterTax)} VND
       </td>
     </tr>
   );

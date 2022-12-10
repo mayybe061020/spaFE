@@ -65,14 +65,11 @@ const ViewManagerDialog: FC<
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    reset();
     onClosed && onClosed();
   };
 
-  const submit = (formData: object) => {
+  const submit = (formData: object) =>
     DialogSubmit("view", dirtyFields, onClosed, data)(formData);
-    reset();
-  };
 
   return (
     <Modal
@@ -231,8 +228,6 @@ const ViewManagerDialog: FC<
             {...register("password")}
           />
           <FormErrorMessage errors={errors} name={"password"} />
-          {JSON.stringify(updateManagerSchema.safeParse(getValues()))}
-          {JSON.stringify(getValues())}
 
           <Divider my={8} />
           <div className="flex justify-end space-x-2">
