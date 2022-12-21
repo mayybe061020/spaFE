@@ -12,27 +12,37 @@ import usePaginationHook from "../../../hooks/pagination.hook";
 import { StaffModel } from "../../../model/staff.model";
 import { useAuthUser } from "../../../store/auth-user.state";
 import { USER_ROLE } from "../../../const/user-role.const";
+import useDebounceHook from "../../../hooks/use-debounce.hook";
+import { ChangeEvent } from "react";
 
 const Index: AppPageInterface = () => {
+  const { value: searchKey, onChange: setSearchWord } = useDebounceHook();
   const userRole = useAuthUser((s) => s.user?.role);
 
   const {
     currentPage,
     update: updatePagination,
     totalPage,
+    pageSize,
   } = usePaginationHook();
 
   const {
     data: staffs,
     isLoading,
     refetch,
-  } = useListUserQuery<StaffModel>("staff", currentPage, updatePagination);
+  } = useListUserQuery<StaffModel>("staff", currentPage, updatePagination, {
+    pageSize,
+    searchQuery: searchKey ? { name: searchKey } : undefined,
+  });
 
-  const arrBtn = (data: any) => {
+  const arrBtn = (data: StaffModel) => {
     return (
-      <div className="flex gap-1" key={data.length}>
-        <StaffViewModalBtn staffData={data} />
-        <StaffCDeleteModalBtn staffData={data} />
+      <div className="flex gap-1" key={data.id}>
+        <StaffViewModalBtn onChanged={(d) => d && refetch()} staffData={data} />
+        <StaffCDeleteModalBtn
+          onChanged={(d) => d && refetch()}
+          staffData={data}
+        />
       </div>
     );
   };
@@ -48,9 +58,12 @@ const Index: AppPageInterface = () => {
         {/*Search by name*/}
         <Input
           icon={<IconSearch />}
-          placeholder={"Staff name..."}
+          placeholder={"Tên nhân viên..."}
           type={"text"}
           className="w-56"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchWord(e.currentTarget.value)
+          }
         />
       </div>
       <Divider my={8} />

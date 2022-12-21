@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Image,
   Input,
   PasswordInput,
   Select,
@@ -9,45 +9,47 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { StaffCreateEntity, StaffModel } from "../../../model/staff.model";
+import { StaffModel, StaffUpdateEntity } from "../../../model/staff.model";
 import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
 import { PhoneNumberMask } from "../../../const/input-masking.const";
 import MaskedInput from "react-text-mask";
 import { FC, FormEvent } from "react";
-import {
-  employeeModelSchema,
-  userRegisterSchemaFn,
-} from "../../../validation/account-model.schema";
+import { employeeModelSchema } from "../../../validation/account-model.schema";
 import { GENDER } from "../../../const/gender.const";
 import { DialogSubmit } from "../../../utilities/form-data.helper";
-import BtnSingleUploader from "../../../components/btn-single-uploader";
-import { ACCEPTED_IMAGE_TYPES } from "../../../const/file.const";
 import { STAFF_USER_ROLE } from "../../../const/user-role.const";
 import DialogDetailAction from "../../../components/dialog-detail-action";
+import { linkImage } from "../../../utilities/image.helper";
+import ImageUpload from "../../../components/image-upload";
+import FormErrorMessage from "../../../components/form-error-message";
+import { idDbSchema, passwordSchema } from "../../../validation/field.schema";
 
 type ViewStaffPropsType = {
   staffData: StaffModel;
-  onClosed: (staffData?: StaffCreateEntity) => void;
+  onClosed: (staffData?: StaffUpdateEntity) => void;
 };
 
 const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
-  const createStaffSchema = userRegisterSchemaFn(employeeModelSchema, false);
-
-  console.log(staffData);
+  const createStaffSchema = employeeModelSchema.extend({
+    id: idDbSchema,
+    password: passwordSchema.optional().nullable(),
+  });
 
   const {
     control,
     register,
     handleSubmit,
     reset,
-    formState: { isValid, isDirty, dirtyFields },
+    formState: { errors, isValid, isDirty, dirtyFields },
   } = useForm<z.infer<typeof createStaffSchema>>({
     resolver: zodResolver(createStaffSchema),
     mode: "onBlur",
     criteriaMode: "all",
     defaultValues: {
       ...staffData,
+      // API response the password to be empty string...idk why but...yea...
+      password: null,
       dateOfBirth: staffData.dateOfBirth
         ? dayjs(staffData.dateOfBirth).toDate()
         : undefined,
@@ -68,73 +70,90 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
     <div>
       <form
         onReset={handleReset}
-        onSubmit={handleSubmit(DialogSubmit("create", dirtyFields, onClosed))}
-        className="flex w-[600px] space-x-4"
+        onSubmit={handleSubmit(
+          DialogSubmit("view", dirtyFields, onClosed, staffData)
+        )}
+        className="flex w-[650px] space-x-4"
       >
         <div className={"flex w-full flex-col"}>
-          <div className={"flex w-full justify-between gap-5"}>
+          <div className={"flex w-full justify-between gap-2"}>
             <div
               style={{ width: 220 }}
-              className={"flex h-full flex-col items-center space-y-2"}
+              className={"flex h-full flex-col items-center space-y-1"}
             >
+              <small className={"w-full text-[14px] font-semibold"}>Ảnh</small>
               <Controller
                 name={"image"}
                 control={control}
                 render={({ field }) => (
-                  <BtnSingleUploader
-                    accept={ACCEPTED_IMAGE_TYPES.join(",")}
+                  <ImageUpload
                     onChange={(f) => {
                       field.onChange(f);
                       field.onBlur();
                     }}
-                    btnTitle={"Upload"}
-                    btnPosition={"after"}
-                    render={(f) =>
-                      (f && (
-                        <div className={"flex justify-center"}>
-                          <div className="mt-2 rounded-full border-2 border-gray-400 object-cover shadow-xl">
-                            <Avatar
-                              radius={60}
-                              size={120}
-                              src={URL.createObjectURL(f)}
-                              alt="User Avatar"
-                            />
-                          </div>
-                        </div>
-                      )) ?? <></>
-                    }
+                    defaultSrc={field.value as string}
+                    render={(file) => (
+                      <Image
+                        placeholder={true}
+                        radius={4}
+                        width={204}
+                        height={204}
+                        fit={"cover"}
+                        className={"rounded border"}
+                        src={linkImage(file)}
+                        alt="user image"
+                      />
+                    )}
                   />
                 )}
               />
             </div>
             <div className={"w-full"}>
               <TextInput
-                label={"Full name"}
-                placeholder="Full name"
+                label={"Tên đầy đủ"}
+                placeholder="Nguyễn Văn A"
+                required
                 {...register("name")}
               />
-              <Input.Wrapper label={"Role"} withAsterisk>
-                <Input
-                  component={"select"}
-                  placeholder="Role"
-                  {...register("role")}
-                >
-                  <option value={STAFF_USER_ROLE.sale_staff}>Sale staff</option>
-                  <option value={STAFF_USER_ROLE.technical_staff}>
-                    Technical staff
-                  </option>
-                </Input>
-              </Input.Wrapper>
+              <FormErrorMessage errors={errors} name={"name"} />
+              <Controller
+                render={({ field }) => (
+                  <Select
+                    label={"Chức vụ"}
+                    placeholder="Chức vụ"
+                    withAsterisk
+                    data={[
+                      {
+                        value: STAFF_USER_ROLE.sale_staff,
+                        label: "NV Kinh Doanh",
+                      },
+                      {
+                        value: STAFF_USER_ROLE.technical_staff,
+                        label: "NV Kĩ Thuật",
+                      },
+                    ]}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      field.onBlur();
+                    }}
+                    onBlur={field.onBlur}
+                    defaultValue={field.value}
+                  ></Select>
+                )}
+                name={"role"}
+                control={control}
+              />
+              <FormErrorMessage errors={errors} name={"role"} />
               <PasswordInput
-                placeholder="Password"
-                label="Password"
-                withAsterisk
+                placeholder="Mật khẩu"
+                label="Mật khẩu"
                 {...register("password")}
               />
+              <FormErrorMessage errors={errors} name={"password"} />
             </div>
           </div>
           <div className="flex w-full justify-between gap-5">
-            <div className={"flex w-full flex-col gap-3"}>
+            <div className={"flex w-full flex-col gap-1"}>
               <Controller
                 render={({ field }) => (
                   <Select
@@ -143,7 +162,6 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
                     data={[
                       { value: GENDER.male, label: "Nam" },
                       { value: GENDER.female, label: "Nữ" },
-                      { value: GENDER.other, label: "Khác" },
                     ]}
                     onChange={(e) => {
                       field.onChange(e);
@@ -156,6 +174,7 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
                 name={"gender"}
                 control={control}
               />
+              <FormErrorMessage errors={errors} name={"gender"} />
               <Controller
                 render={({ field }) => (
                   <DatePicker
@@ -175,8 +194,9 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
                 name={"dateOfBirth"}
                 control={control}
               />
+              <FormErrorMessage errors={errors} name={"dateOfBirth"} />
             </div>
-            <div className={"flex w-full flex-col gap-3"}>
+            <div className={"flex w-full flex-col gap-1"}>
               <Controller
                 name={"phone"}
                 control={control}
@@ -193,6 +213,7 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
                   </Input.Wrapper>
                 )}
               />
+              <FormErrorMessage errors={errors} name={"phone"} />
               <TextInput
                 required
                 type="email"
@@ -201,6 +222,7 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
                 placeholder={"john_smith@domain.com"}
                 {...register("email")}
               />
+              <FormErrorMessage errors={errors} name={"email"} />
             </div>
           </div>
           <Textarea
@@ -214,7 +236,7 @@ const ViewStaff: FC<ViewStaffPropsType> = ({ onClosed, staffData }) => {
           <div className={"mt-3 flex justify-end"}>
             <DialogDetailAction
               mode={"view"}
-              isDirty={isDirty}
+              isDirty={isDirty && Object.keys(dirtyFields).length > 0}
               isValid={isValid}
             />
           </div>

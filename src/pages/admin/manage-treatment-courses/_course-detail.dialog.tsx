@@ -314,6 +314,7 @@ const CourseDetailDialog: FC<
                     field.onChange(f);
                     field.onBlur();
                   }}
+                  defaultSrc={field.value as string}
                   render={(file) => (
                     <Image
                       radius={4}
@@ -391,7 +392,7 @@ const CourseDetailDialog: FC<
             {!readonly ? (
               <DialogDetailAction
                 mode={mode}
-                isDirty={isDirty}
+                isDirty={isDirty && Object.keys(dirtyFields).length > 0}
                 isValid={isValid}
                 readonly={readonly}
               />

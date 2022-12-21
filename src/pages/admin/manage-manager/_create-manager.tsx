@@ -60,7 +60,7 @@ const CreateManager: FC<
 
   return (
     <Modal
-      title={<h1 className="text-center font-thin capitalize">New Account</h1>}
+      title={<h1 className="text-center font-thin capitalize">Thêm mới tài khoản</h1>}
       opened={opened}
       size={"auto"}
       onClose={() => reset()}
@@ -79,10 +79,7 @@ const CreateManager: FC<
           label={"Tên Quản Lý"}
           description={
             <small className="mb-2 leading-tight text-gray-500">
-              Hãy đặt tên theo{" "}
-              <Link className="inline text-blue-600 underline" href={"/404"}>
-                đúng quy định
-              </Link>
+              Hãy đặt tên theo đúng quy định
             </small>
           }
           placeholder={"Tên đầy đủ"}
@@ -122,7 +119,7 @@ const CreateManager: FC<
             <DatePicker
               minDate={dayjs(new Date()).subtract(64, "years").toDate()}
               maxDate={dayjs(new Date()).subtract(18, "years").toDate()}
-              placeholder="In range of 18-64 years old"
+              placeholder="Trong khoảng 18-64 tuổi"
               label="Ngày Sinh"
               withAsterisk
               onChange={(e) => {
@@ -161,10 +158,10 @@ const CreateManager: FC<
         <FormErrorMessage errors={errors} name={"gender"} />
 
         <Textarea
-          label={"Address"}
+          label={"Địa chỉ"}
           autosize={false}
           rows={4}
-          placeholder={"permanent address..."}
+          placeholder={"Nhập địa chỉ..."}
           id={"branchAddress"}
           required
           {...register("address")}
@@ -183,7 +180,7 @@ const CreateManager: FC<
           label={"Mật Khẩu"}
           id={"password"}
           type="password"
-          placeholder={"3-30 characters"}
+          placeholder={"3-30 ký tự"}
           required
           {...register("password")}
         />
@@ -200,10 +197,10 @@ const CreateManager: FC<
         <FormErrorMessage errors={errors} name={"confirmPassword"} />
 
         <label htmlFor="file" className="text-[14px] font-[500] text-gray-900">
-          Avatar<span className="text-red-500">*</span>
+          Ảnh đại diện<span className="text-red-500">*</span>
         </label>
         <small className="mb-1 text-[12px] leading-tight text-gray-400">
-          The avatar must be less than 5MB, in *.PNG, *.JPEG, or *.WEBP format.
+          Ảnh đại diện phải nhỏ hơn 5 MB, ở định dạng *.PNG, *.JPEG hoặc *.WEBP.
         </small>
         {/* Manual handle Form binding because btn does not expose `ref` for hook*/}
         <Controller
@@ -215,6 +212,7 @@ const CreateManager: FC<
                 field.onChange(f);
                 field.onBlur();
               }}
+              defaultSrc={field.value as string}
               render={(file) => (
                 <Avatar
                   radius={80}
@@ -233,7 +231,7 @@ const CreateManager: FC<
 
         <DialogDetailAction
           mode={"create"}
-          isDirty={isDirty}
+          isDirty={isDirty && Object.keys(dirtyFields).length > 0}
           isValid={isValid}
         />
       </form>

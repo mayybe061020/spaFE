@@ -1,6 +1,7 @@
 import { Tooltip } from "@mantine/core";
 import { useClipboard } from "@mantine/hooks";
 import { StaffModel } from "../../../../model/staff.model";
+import { USER_ROLE_CONTEXT } from "../../../../const/user-role.const";
 
 type RecordProps = {
   no?: number;
@@ -24,16 +25,18 @@ export default function TableRecord(props: RecordProps) {
       </td>
 
       <td
-        className="text-center overflow-hidden text-ellipsis"
+        className="overflow-hidden text-ellipsis text-center"
         onClick={() => clipboard.copy(props.data.role)}
       >
         <Tooltip label={props.data.role}>
-          <span>{props.data.role}</span>
+          <span>{USER_ROLE_CONTEXT[props.data.role] || "NV"}</span>
         </Tooltip>
       </td>
 
-      <td className="text-center overflow-hidden text-ellipsis"
-        onClick={() => clipboard.copy(props.data.phone)}>
+      <td
+        className="overflow-hidden text-ellipsis text-center"
+        onClick={() => clipboard.copy(props.data.phone)}
+      >
         {props.data.phone}
       </td>
 

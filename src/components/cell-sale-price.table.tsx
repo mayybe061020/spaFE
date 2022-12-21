@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Text } from "@mantine/core";
 import { BasePriceModel } from "../model/_price.model";
-import { formatPrice } from "../utilities/pricing.helper";
+import { formatPrice, isBetweenSale } from "../utilities/pricing.helper";
 
 type cellProps = {
   priceModel: BasePriceModel;
@@ -28,7 +28,7 @@ const SalePriceTableCell: FC<cellProps> = ({ priceModel, before, after }) => {
   });
 
   useEffect(() => {
-    if (priceModel.discountPercent === null) {
+    if (priceModel.discountPercent === null || !isBetweenSale(priceModel)) {
       // skip the process. The sale context is invalid
       // -> display price as not sale.
       setDisplayPrice({

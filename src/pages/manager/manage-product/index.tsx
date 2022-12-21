@@ -11,8 +11,11 @@ import { SupplierModel } from "../../../model/supplier.model";
 import { useListProductQuery } from "../../../query/model-list";
 import { AppPageInterface } from "../../../interfaces/app-page.interface";
 import { USER_ROLE } from "../../../const/user-role.const";
+import useDebounceHook from "../../../hooks/use-debounce.hook";
+import { ChangeEvent } from "react";
 
 const ListProducts: AppPageInterface = () => {
+  const { value: searchKey, onChange: setSearchWord } = useDebounceHook();
   const { modal, openModal, resetModal } =
     useDialogDetailRow<ProductModel<SupplierModel>>();
 
@@ -25,7 +28,11 @@ const ListProducts: AppPageInterface = () => {
 
   const { data: products, isLoading } = useListProductQuery(
     currentPage,
-    updatePagination
+    updatePagination,
+    {
+      pageSize,
+      searchQuery: searchKey ? { name: searchKey } : undefined,
+    }
   );
 
   return (
@@ -36,6 +43,9 @@ const ListProducts: AppPageInterface = () => {
           placeholder={"product name..."}
           type={"text"}
           className="w-56"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchWord(e.currentTarget.value)
+          }
         />
       </div>
       <Divider my={8} />

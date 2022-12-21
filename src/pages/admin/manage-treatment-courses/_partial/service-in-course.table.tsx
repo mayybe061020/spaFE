@@ -51,16 +51,16 @@ const ServiceInCourseTable: FC<TableProps> = ({
       <thead>
         <tr>
           <th>No.</th>
-          <th>Image</th>
-          <th>Name</th>
+          <th>Hình ảnh</th>
+          <th>Tên</th>
           <th>
-            Duration{" "}
+            Thời lượng{" "}
             <Text size={"xs"} color={"dimmed"}>
-              (minutes)
+              (phút)
             </Text>
           </th>
           <th>
-            Price{" "}
+            Giá{" "}
             <Text size={"xs"} color={"dimmed"}>
               (VND)
             </Text>
@@ -89,7 +89,7 @@ const ServiceInCourseTable: FC<TableProps> = ({
                 color={"green"}
                 fullWidth
               >
-                Sản phẩm
+                Dịch vụ
               </Button>
             </td>
           </tr>

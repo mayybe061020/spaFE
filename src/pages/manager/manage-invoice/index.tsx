@@ -6,8 +6,11 @@ import { useRouter } from "next/router";
 import usePaginationHook from "../../../hooks/pagination.hook";
 import { useListInvoiceQuery } from "../../../query/model-list";
 import { USER_ROLE } from "../../../const/user-role.const";
+import useDebounceHook from "../../../hooks/use-debounce.hook";
+import { ChangeEvent } from "react";
 
 const Index: AppPageInterface = () => {
+  const { value: searchKey, onChange: setSearchWord } = useDebounceHook();
   const router = useRouter();
   const {
     pageSize,
@@ -21,6 +24,7 @@ const Index: AppPageInterface = () => {
     updatePagination,
     {
       pageSize,
+      searchQuery: searchKey ? { name: searchKey } : undefined,
     }
   );
 
@@ -44,9 +48,12 @@ const Index: AppPageInterface = () => {
         {/*Search by name*/}
         <Input
           icon={<IconSearch />}
-          placeholder={"Bill name..."}
+          placeholder={"Tên khách hàng..."}
           type={"text"}
           className="w-56"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchWord(e.currentTarget.value)
+          }
         />
       </div>
       <Divider my={8} />

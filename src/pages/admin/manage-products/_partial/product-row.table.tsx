@@ -67,7 +67,7 @@ const ProductRowTable: FC<DataRowProps<ProductModel<SupplierModel>>> = ({
       <td className="!pl-0 !pr-1 !pt-2 !pb-1">
         <div className="flex flex-col space-y-1 text-gray-600 line-clamp-2">
           <small>
-            <span className={"font-semibold"}>Description: </span>
+            <span className={"font-semibold"}>Miêu tả: </span>
             {data.description}
           </small>
         </div>

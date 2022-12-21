@@ -13,11 +13,11 @@ export default function ProductInServiceHeaderTable() {
       <thead>
         <tr className={'border-y'}>
           <th className="!text-center">No.</th>
-          <th className="!text-center">Image</th>
-          <th className='!text-center'>Name</th>
-          <th className="!text-center">Dose</th>
-          <th className="!text-center">Unit</th>
-          <th className="!text-center">Uses</th>
+          <th className="!text-center">Hình ảnh</th>
+          <th className='!text-center'>Tên</th>
+          <th className="!text-center">Liều lượng</th>
+          <th className="!text-center">Đơn vị</th>
+          <th className="!text-center">Sử dụng</th>
           <th></th>
         </tr>
       </thead>

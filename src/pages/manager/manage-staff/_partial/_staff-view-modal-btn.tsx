@@ -2,9 +2,14 @@ import { useState } from "react";
 import { IconSettings } from "@tabler/icons";
 import { ActionIcon, Modal, Tooltip } from "@mantine/core";
 import ViewStaff from "../_view-staff";
-import { BranchModel } from "../../../../model/branch.model";
-import { ManagerModel } from "../../../../model/manager.model";
-import { StaffModel } from "../../../../model/staff.model";
+import { StaffModel, StaffUpdateEntity } from "../../../../model/staff.model";
+import { useMutation } from "@tanstack/react-query";
+import { IErrorResponse } from "../../../../interfaces/api.interface";
+import { updateUser } from "../../../../services/user.service";
+import {
+  ShowFailedUpdate,
+  ShowSuccessUpdate,
+} from "../../../../utilities/show-notification";
 
 type ModalProps = {
   onChanged?: (updated?: boolean) => void;
@@ -14,7 +19,28 @@ type ModalProps = {
 const StaffViewModalBtn = ({ onChanged, staffData }: ModalProps) => {
   const [viewBranch, setViewBranch] = useState<boolean>(false);
 
-    return (
+  const updateMutation = useMutation<
+    boolean,
+    IErrorResponse,
+    StaffUpdateEntity
+  >(["update-staff"], (payload) => updateUser(payload), {
+    onSuccess: (result) => {
+      if (result) {
+        ShowSuccessUpdate();
+        // close dialog and update to the list screen
+        onChanged && onChanged(true);
+        setViewBranch(false);
+        return;
+      }
+      ShowFailedUpdate();
+    },
+    onError: (e) => {
+      console.error(e);
+      ShowFailedUpdate();
+    },
+  });
+
+  return (
     <>
       {/* Button view branch -> trigger modal*/}
       <Tooltip onClick={() => setViewBranch(true)} label={"View / Edit"}>
@@ -37,10 +63,10 @@ const StaffViewModalBtn = ({ onChanged, staffData }: ModalProps) => {
       >
         <ViewStaff
           onClosed={(e) => {
-            //  TODO: handle API call
-            console.log(e);
-            // close dialog and update to the list screen
-            onChanged && onChanged(true);
+            if (e) {
+              updateMutation.mutate(e);
+              return;
+            }
             setViewBranch(false);
           }}
           staffData={staffData}

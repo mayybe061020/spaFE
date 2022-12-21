@@ -6,7 +6,6 @@ import {
   Textarea,
   TextInput,
 } from "@mantine/core";
-import Link from "next/link";
 import MaskedInput from "react-text-mask";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -57,7 +56,7 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid, isDirty, dirtyFields },
   } = useForm<z.infer<typeof createSchema>>({
     resolver: zodResolver(createSchema),
     mode: "onBlur",
@@ -94,16 +93,13 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
       className={"flex flex-col"}
     >
       <TextInput
-        label={"Branch Name"}
+        label={"Tên chi nhánh"}
         description={
           <small className="mb-2 leading-tight text-gray-500">
-            Hãy đặt tên chi nhánh theo đúng{" "}
-            <Link className="inline text-blue-600 underline" href={"/404"}>
-              quy định
-            </Link>
+            Hãy đặt tên chi nhánh theo đúng quy định
           </small>
         }
-        placeholder={"enter the branch name..."}
+        placeholder={"Nhập tên chi nhánh..."}
         required
         {...register("name")}
       ></TextInput>
@@ -113,8 +109,8 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
         render={({ field }) => (
           <Select
             data={!availableManager || managerLoading ? [] : availableManager}
-            placeholder={"branch's manager name..."}
-            label={"Manager Name"}
+            placeholder={"Nhập tên quản lý..."}
+            label={"Tên quản lý"}
             searchable
             itemComponent={AutoCompleteItem}
             nothingFound="No options"
@@ -130,10 +126,10 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
       <FormErrorMessage errors={errors} name={"manager"} />
 
       <Textarea
-        label={"Branch's Address"}
+        label={"Địa chỉ chi nhánh"}
         autosize={false}
         rows={4}
-        placeholder={"the address of the branch..."}
+        placeholder={"Nhập địa chỉ chi nhánh..."}
         id={"branchAddress"}
         required
         {...register("address")}
@@ -145,7 +141,7 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
         name={"phone"}
         control={control}
         render={({ field }) => (
-          <Input.Wrapper required id={"phone"} label={"Phone number"}>
+          <Input.Wrapper required id={"phone"} label={"Số điện thoại"}>
             <Input
               component={MaskedInput}
               mask={PhoneNumberMask}
@@ -169,10 +165,10 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
       <FormErrorMessage errors={errors} name={"email"} />
 
       <label htmlFor="file" className="text-[14px] text-gray-900">
-        Branch Logo <span className="text-red-500">*</span>
+        Logo chi nhánh <span className="text-red-500">*</span>
       </label>
       <small className="mb-1 text-[12px] leading-tight text-gray-400">
-        The logo must be less than 5MB, in *.PNG, *.JPEG, or *.WEBP format.
+        Logo phải nhỏ hơn 5 MB, ở định dạng *.PNG, *.JPEG hoặc *.WEBP.
       </small>
       {/* Manual handle Form binding because btn does not expose `ref` for hook*/}
       <Controller
@@ -184,6 +180,7 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
               field.onChange(f);
               field.onBlur();
             }}
+            defaultSrc={field.value as string}
             render={(file) => (
               <Avatar
                 radius={4}
@@ -200,7 +197,11 @@ const CreateBranch = ({ onSave }: CreateBranchPropsType) => {
 
       <Divider my={16} />
 
-      <DialogDetailAction mode={"create"} isDirty={isDirty} isValid={isValid} />
+      <DialogDetailAction
+        mode={"create"}
+        isDirty={isDirty && Object.keys(dirtyFields).length > 0}
+        isValid={isValid}
+      />
     </form>
   );
 };

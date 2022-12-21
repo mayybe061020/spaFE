@@ -8,15 +8,15 @@ type CustomerDetailProps = {
   onInfoChanged?: (mutateData: unknown) => void;
   onBackBtnClicked?: () => void;
 } & (
-  | {
+    | {
       mode: "view";
       data: CustomerModel;
     }
-  | {
+    | {
       mode: "create";
       data?: CustomerModel;
     }
-);
+  );
 
 const CustomerDetail = ({
   mode,
@@ -33,7 +33,7 @@ const CustomerDetail = ({
     <div className={"flex flex-col p-8"}>
       <div className="flex-start mb-8 flex w-full">
         <Button leftIcon={<IconArrowLeft />} onClick={onBackBtnClicked}>
-          Back to List
+          Trở về danh sách
         </Button>
       </div>
 

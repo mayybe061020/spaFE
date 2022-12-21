@@ -21,7 +21,7 @@ const TimeInvoiceInformation = (data?: TimeInvoiceProps) => {
         onClick={() => copyHook.copy(copyFormat(data?.createdDate))}
         className="flex flex-1 cursor-pointer flex-col items-center rounded-lg bg-blue-600 p-4"
       >
-        <h4 className={"text-md font-thin text-white"}>Được xuất đơn lúc</h4>
+        <h4 className={"text-md font-thin text-white"}>Được xác nhận đơn lúc</h4>
         <Text color={"white"} size={"lg"} weight={"bolder"}>
           {data?.createdDate && timeToDate(data?.createdDate)}
         </Text>

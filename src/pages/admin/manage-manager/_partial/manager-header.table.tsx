@@ -10,11 +10,11 @@ const ManagerHeaderTable = () => {
       </colgroup>
       <thead className="bg-blue-600">
         <tr>
-          <th className="!text-white">No.</th>
+          <th className="!text-white">Thứ tự</th>
           <th className="!text-white">Tên</th>
           <th className="!text-white">SĐT</th>
           <th className="!text-white">Email</th>
-          <th className="!text-white">Address</th>
+          <th className="!text-white">Địa chỉ</th>
         </tr>
       </thead>
     </>

@@ -11,7 +11,7 @@ const CalendarController = ({ dateData, onChange }: calendarProps) => {
     <div className="flex items-center gap-4">
       <DatePicker
         placeholder="Pick date"
-        label="Schedule at date"
+        label="Lịch hẹn tại ngày"
         value={dateData}
         onChange={onChange}
         withAsterisk

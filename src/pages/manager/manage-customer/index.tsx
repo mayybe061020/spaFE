@@ -2,11 +2,15 @@ import { AppPageInterface } from "../../../interfaces/app-page.interface";
 import ListCustomer from "../../_shared/customer/customer-list";
 import { USER_ROLE } from "../../../const/user-role.const";
 import { useRouter } from "next/router";
-import { Divider, Pagination } from "@mantine/core";
+import { Divider, Input, Pagination } from "@mantine/core";
 import usePaginationHook from "../../../hooks/pagination.hook";
 import { useListCustomerQuery } from "../../../query/model-list";
+import useDebounceHook from "../../../hooks/use-debounce.hook";
+import { IconSearch } from "@tabler/icons";
+import { ChangeEvent } from "react";
 
 const ManageCustomer: AppPageInterface = () => {
+  const { value: searchKey, onChange: setSearchWord } = useDebounceHook();
   const router = useRouter();
   const {
     pageSize,
@@ -20,6 +24,7 @@ const ManageCustomer: AppPageInterface = () => {
     updatePagination,
     {
       pageSize,
+      searchQuery: searchKey ? { name: searchKey } : undefined,
     }
   );
 
@@ -39,6 +44,20 @@ const ManageCustomer: AppPageInterface = () => {
 
   return (
     <div className={"flex min-h-full flex-col space-y-4 p-4"}>
+      <div className="flex justify-end space-x-2">
+        <Input
+          icon={<IconSearch />}
+          placeholder={"Tên khách hàng..."}
+          type={"text"}
+          className="w-56"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchWord(e.currentTarget.value)
+          }
+        />
+      </div>
+
+      <Divider />
+
       <div className="flex-1">
         <ListCustomer
           page={currentPage}

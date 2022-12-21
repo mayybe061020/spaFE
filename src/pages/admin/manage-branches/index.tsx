@@ -18,7 +18,7 @@ const Index: AppPageInterface = () => {
   const {
     pageSize,
     currentPage: page,
-    totalRecord,
+    totalPage,
     update: updatePagination,
   } = usePaginationHook();
 
@@ -105,7 +105,7 @@ const Index: AppPageInterface = () => {
         position={"center"}
         page={page}
         onChange={(p) => updatePagination({ newPage: p })}
-        total={totalRecord / pageSize}
+        total={totalPage}
       ></Pagination>
     </div>
   );

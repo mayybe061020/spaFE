@@ -42,6 +42,14 @@ const ViewManagerDialog: FC<
     })
   );
 
+  const defaultValue = {
+    ...data,
+    dateOfBirth: data.dateOfBirth
+      ? dayjs(data.dateOfBirth).toDate()
+      : undefined,
+    password: undefined,
+  };
+
   const {
     control,
     register,
@@ -53,13 +61,7 @@ const ViewManagerDialog: FC<
     resolver: zodResolver(updateManagerSchema),
     mode: "onBlur",
     criteriaMode: "all",
-    defaultValues: {
-      ...data,
-      dateOfBirth: data.dateOfBirth
-        ? dayjs(data.dateOfBirth).toDate()
-        : undefined,
-      password: undefined,
-    },
+    defaultValues: defaultValue,
   });
 
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
@@ -74,7 +76,7 @@ const ViewManagerDialog: FC<
   return (
     <Modal
       title={
-        <h1 className="text-center font-thin capitalize">Manager Detail</h1>
+        <h1 className="text-center font-thin capitalize">Thông tin tài khoản</h1>
       }
       opened={opened}
       size={"auto"}
@@ -134,7 +136,7 @@ const ViewManagerDialog: FC<
             name={"phone"}
             control={control}
             render={({ field }) => (
-              <Input.Wrapper required id={"phone"} label={"Phone Number"}>
+              <Input.Wrapper required id={"phone"} label={"Số điện thoại"}>
                 <Input
                   component={MaskedInput}
                   mask={PhoneNumberMask}
@@ -161,8 +163,8 @@ const ViewManagerDialog: FC<
               <DatePicker
                 minDate={dayjs(new Date()).subtract(64, "years").toDate()}
                 maxDate={dayjs(new Date()).subtract(18, "years").toDate()}
-                placeholder="In range of 18-64 years old"
-                label="Date of Birth"
+                placeholder="trong khoảng 18-64 tuổi"
+                label="Ngày sinh"
                 withAsterisk
                 onChange={(e) => {
                   field.onChange(e);
@@ -181,7 +183,7 @@ const ViewManagerDialog: FC<
             render={({ field }) => (
               <Radio.Group
                 name={"gender"}
-                label="Gender"
+                label="Giới tính"
                 onChange={(e) => {
                   field.onChange(e);
                   field.onBlur();
@@ -190,8 +192,8 @@ const ViewManagerDialog: FC<
                 defaultValue={field.value}
                 withAsterisk
               >
-                <Radio value={GENDER.male} label="Male" />
-                <Radio value={GENDER.female} label="Female" />
+                <Radio value={GENDER.male} label="Nam" />
+                <Radio value={GENDER.female} label="Nữ" />
               </Radio.Group>
             )}
             name={"gender"}
@@ -200,10 +202,10 @@ const ViewManagerDialog: FC<
           <FormErrorMessage errors={errors} name={"gender"} />
 
           <Textarea
-            label={"Address"}
+            label={"Địa chỉ"}
             autosize={false}
             rows={4}
-            placeholder={"permanent address..."}
+            placeholder={"Nhập địa chỉ..."}
             id={"address"}
             required
             {...register("address")}
@@ -233,7 +235,7 @@ const ViewManagerDialog: FC<
           <div className="flex justify-end space-x-2">
             <DialogDetailAction
               mode={"view"}
-              isDirty={isDirty}
+              isDirty={isDirty && Object.keys(dirtyFields).length > 0}
               isValid={isValid}
             />
           </div>

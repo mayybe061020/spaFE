@@ -51,7 +51,7 @@ const SaleStaffCustomerList: AppPageInterface = () => {
           color={"teal"}
           leftIcon={<IconPlus />}
         >
-          Customer
+          Khách hàng
         </Button>
 
         <Input

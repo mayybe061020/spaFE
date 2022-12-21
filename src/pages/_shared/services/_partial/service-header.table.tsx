@@ -10,9 +10,9 @@ const ServiceHeaderTable = () => {
       <thead>
         <tr>
           <th>No.</th>
-          <th>Name</th>
-          <th className={"!text-center"}>Price</th>
-          <th>Description</th>
+          <th>Tên</th>
+          <th className={"!text-center"}>Giá</th>
+          <th>Miêu tả</th>
         </tr>
       </thead>
     </>

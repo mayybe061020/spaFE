@@ -63,11 +63,11 @@ const InformationForm = ({ data, readonly, mode, onChanged }: FormProps) => {
     criteriaMode: "all",
     defaultValues: data
       ? {
-          ...data,
-          dateOfBirth: data.dateOfBirth
-            ? dayjs(data.dateOfBirth).toDate()
-            : undefined,
-        }
+        ...data,
+        dateOfBirth: data.dateOfBirth
+          ? dayjs(data.dateOfBirth).toDate()
+          : undefined,
+      }
       : undefined,
   });
 
@@ -106,9 +106,8 @@ const InformationForm = ({ data, readonly, mode, onChanged }: FormProps) => {
           render={({ field }) => (
             <Select
               data={[
-                { value: GENDER.male, label: "Male" },
-                { value: GENDER.female, label: "Female" },
-                { value: GENDER.other, label: "other" },
+                { value: GENDER.male, label: "Nam" },
+                { value: GENDER.female, label: "Nữ" },
               ]}
               onChange={(e) => {
                 field.onChange(e);
@@ -159,7 +158,7 @@ const InformationForm = ({ data, readonly, mode, onChanged }: FormProps) => {
             <Input.Wrapper
               label={
                 <Text color={"dimmed"} size={"sm"}>
-                  Phone Number{" "}
+                  Số điện thoại{" "}
                   {readonly ? "" : <span className="text-red-500">*</span>}
                 </Text>
               }

@@ -119,6 +119,7 @@ const BranchInfo = ({ branchData, onClose }: ViewBranchPropsType) => {
                 field.onChange(f);
                 field.onBlur();
               }}
+              defaultSrc={field.value as string}
               render={(file) => (
                 <Avatar
                   radius={80}
@@ -135,15 +136,15 @@ const BranchInfo = ({ branchData, onClose }: ViewBranchPropsType) => {
       </div>
 
       <div className={"flex flex-1 flex-col"}>
-        <small className={"leading-none text-gray-500"}>Branch</small>
+        <small className={"leading-none text-gray-500"}>Chi nhánh</small>
         <h1 className={"mb-2 text-2xl font-semibold"}>{branchData.name}</h1>
 
         <Controller
           render={({ field }) => (
             <Select
               data={!availableManager || managerLoading ? [] : availableManager}
-              placeholder={"branch manager..."}
-              label={"Branch Manager Name"}
+              placeholder={"Quản lý chi nhánh..."}
+              label={"Tên quản lý chi nhánh"}
               searchable
               itemComponent={AutoCompleteItem}
               nothingFound="No options"
@@ -160,10 +161,10 @@ const BranchInfo = ({ branchData, onClose }: ViewBranchPropsType) => {
         <FormErrorMessage errors={errors} name={"manager"} />
 
         <Textarea
-          label={"Address"}
+          label={"Địa chỉ"}
           autosize={false}
           rows={4}
-          placeholder={"branch's address..."}
+          placeholder={"Địa chỉ chi nhánh..."}
           id={"branchAddress"}
           required
           {...register("address")}
@@ -176,7 +177,7 @@ const BranchInfo = ({ branchData, onClose }: ViewBranchPropsType) => {
           name={"phone"}
           control={control}
           render={({ field }) => (
-            <Input.Wrapper required id={"phone"} label={"Phone Number"}>
+            <Input.Wrapper required id={"phone"} label={"Số điện thoại"}>
               <Input
                 component={MaskedInput}
                 mask={PhoneNumberMask}
@@ -203,7 +204,7 @@ const BranchInfo = ({ branchData, onClose }: ViewBranchPropsType) => {
         <div className="flex w-full justify-end">
           <DialogDetailAction
             mode={"view"}
-            isDirty={isDirty}
+            isDirty={isDirty && Object.keys(dirtyFields).length > 0}
             isValid={isValid}
           />
         </div>

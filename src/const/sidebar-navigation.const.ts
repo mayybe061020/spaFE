@@ -14,8 +14,9 @@ export const branchAdminConfig: NavLinkItemProp[] = [
   {
     href: `/${USER_ROLE.admin}/manage-treatment-courses`,
     label: "Quản Lý Liệu Trình",
-  },
-  { href: `/${USER_ROLE.admin}/reports`, label: "Báo Cáo" },
+  }
+  // ,
+  // { href: `/${USER_ROLE.admin}/reports`, label: "Báo Cáo" },
 ];
 
 export const branchManagerConfig: NavLinkItemProp[] = [
@@ -39,6 +40,10 @@ export const branchManagerConfig: NavLinkItemProp[] = [
   {
     href: `/${USER_ROLE.manager}/manage-staff`,
     label: "Quản lý nhân viên",
+  },
+  {
+    href: `/${USER_ROLE.manager}/manage-bed`,
+    label: "Quản lý giường",
   },
   {
     isDivider: true,

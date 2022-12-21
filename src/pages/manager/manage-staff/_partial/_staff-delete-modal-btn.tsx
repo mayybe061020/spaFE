@@ -12,13 +12,13 @@ const StaffViewModalBtn = ({ onChanged, staffData }: ModalProps) => {
   const [viewBranch, setViewBranch] = useState<boolean>(false);
 
   const onClose = () => {
-    setViewBranch(false)
-  }
+    setViewBranch(false);
+  };
 
   const onSubmit = () => {
     // Xác nhận xóa Staff
-    onClose()
-  }
+    onClose();
+  };
 
   return (
     <>
@@ -41,11 +41,24 @@ const StaffViewModalBtn = ({ onChanged, staffData }: ModalProps) => {
           setViewBranch(false);
         }}
       >
-        Are you sure you want to delete staff <span className={'font-bold'}>{staffData.name}</span> from system ?
+        Are you sure you want to delete staff{" "}
+        <span className={"font-bold"}>{staffData.name}</span> from system ?
         <div className={"mt-3"}>
           <Group position="center">
-            <Button onClick={() => {onClose()}}>Cancel</Button>
-            <Button onClick={() => {onSubmit()}}>Submit</Button>
+            <Button
+              onClick={() => {
+                onClose();
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                onSubmit();
+              }}
+            >
+              Submit
+            </Button>
           </Group>
         </div>
       </Modal>

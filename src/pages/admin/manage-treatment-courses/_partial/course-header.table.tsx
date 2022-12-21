@@ -13,12 +13,12 @@ const CourseHeaderTable = () => {
       <thead>
         <tr>
           <th className={"!text-center"}>No.</th>
-          <th className={"!text-center"}>Image</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th className={"!text-center"}>Time of Use</th>
-          <th className={"!text-center"}>Expire</th>
-          <th className={"!text-center"}>Price</th>
+          <th className={"!text-center"}>Hình ảnh</th>
+          <th>Tên</th>
+          <th>Miêu tả</th>
+          <th className={"!text-center"}>Số lần sử dụng</th>
+          <th className={"!text-center"}>Thời hạn</th>
+          <th className={"!text-center"}>Giá</th>
         </tr>
       </thead>
     </>

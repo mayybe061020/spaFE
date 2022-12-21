@@ -2,6 +2,7 @@ import { Avatar, NavLink, Text, Tooltip, useMantineTheme } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useAuthUser } from "../../store/auth-user.state";
+import Link from "next/link";
 
 const UserNavbar = () => {
   const user = useAuthUser((s) => s.user);
@@ -15,7 +16,7 @@ const UserNavbar = () => {
   return (
     <NavLink
       href={"/profile"}
-      component={"a"}
+      component={Link}
       active={router.pathname.startsWith("/profile")}
       icon={<Avatar src={user.image} radius="xl" />}
       label={

@@ -21,6 +21,8 @@ import { getListSpaServices } from "../../services/spa-service.service";
 import { getListSpaCourses } from "../../services/spa-course.service";
 import { getAllCustomers } from "../../services/customer.service";
 import { getListInvoices } from "../../services/invoice.service";
+import { getListSpaBed } from "../../services/spa-bed.service";
+import { SpaBedModel } from "../../model/spa-bed.model";
 
 type fnUpdatePagination = ReturnType<typeof usePaginationHook>["update"];
 
@@ -165,3 +167,6 @@ export const useListInvoiceQuery = (
       onError: () => updatePagination({ total: 0, newPage: 1 }),
     }
   );
+
+export const useListBedQuery = () =>
+  useQuery<SpaBedModel[]>(["list-bed"], () => getListSpaBed());

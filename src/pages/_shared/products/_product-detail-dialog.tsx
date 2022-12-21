@@ -375,6 +375,7 @@ const ProductDetailDialog = ({
                     field.onChange(f);
                     field.onBlur();
                   }}
+                  defaultSrc={field.value as string}
                   render={(file) => (
                     <Image
                       radius={4}
@@ -424,7 +425,7 @@ const ProductDetailDialog = ({
             {!readonly ? (
               <DialogDetailAction
                 mode={mode}
-                isDirty={isDirty}
+                isDirty={isDirty && Object.keys(dirtyFields).length > 0}
                 isValid={isValid}
                 readonly={readonly}
               />

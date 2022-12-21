@@ -53,7 +53,7 @@ const BranchViewModalBtn = ({ onChanged, branchData }: ModalProps) => {
       </Tooltip>
       <Modal
         title={
-          <h1 className="text-center font-thin capitalize">Branch Detail</h1>
+          <h1 className="text-center font-thin capitalize">Thông tin chi nhánh</h1>
         }
         opened={viewBranch}
         size={"auto"}

@@ -154,12 +154,12 @@ const Login: AppPageInterface = () => {
           Đăng Nhập
         </Button>
 
-        <Link
+        {/* <Link
           className="mt-2 mb-4 text-center text-xs text-blue-500"
           href={"/forgot-password"}
         >
           Quên mật khẩu?
-        </Link>
+        </Link> */}
       </form>
     </div>
   );

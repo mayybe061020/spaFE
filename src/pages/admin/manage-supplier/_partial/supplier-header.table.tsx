@@ -10,11 +10,11 @@ const SupplierHeaderTable = () => {
       </colgroup>
       <thead className="bg-blue-600 text-sm">
         <tr>
-          <th className="!py-2 !text-center !text-white">No.</th>
-          <th className="!py-2 !text-center !text-white">Name</th>
-          <th className="!py-2 !text-center !text-white">Phone Number</th>
+          <th className="!py-2 !text-center !text-white">Thứ tự</th>
+          <th className="!py-2 !text-center !text-white">Tên nhà cung ứng</th>
+          <th className="!py-2 !text-center !text-white">Số điện thoại</th>
           <th className="!py-2 !text-center !text-white">Email</th>
-          <th className="!py-2 !text-center !text-white">Address</th>
+          <th className="!py-2 !text-center !text-white">Địa chỉ</th>
         </tr>
       </thead>
     </>

@@ -85,7 +85,7 @@ const SupplierDetailDialog = ({
         }`}
       >
         <h2 className={"m-4 text-xl font-semibold uppercase"}>
-          {mode === "view" ? "Supplier Detail" : "Add Supplier"}
+          {mode === "view" ? "Thông tin nhà cung ứng" : "Thêm mới nhà cung ứng"}
         </h2>
         <form
           onReset={handleReset}
@@ -93,22 +93,22 @@ const SupplierDetailDialog = ({
           className={`flex w-[800px] flex-wrap space-x-4 p-4`}
         >
           <div className="flex flex-1 flex-col">
-            <TextInput required label={"Supplier Name"} {...register("name")} />
+            <TextInput
+              required
+              label={"Tên nhà cung ứng"}
+              {...register("name")}
+            />
             <FormErrorMessage errors={errors} name={"name"} />
 
             <TextInput
               maxLength={10}
               required
-              label={"Tax Code"}
+              label={"Mã số thuế"}
               {...register("taxCode")}
             />
             <FormErrorMessage errors={errors} name={"taxCode"} />
 
-            <Textarea
-              required
-              label={"Description"}
-              {...register("description")}
-            />
+            <Textarea required label={"Miêu tả"} {...register("description")} />
             <FormErrorMessage errors={errors} name={"description"} />
           </div>
           <div className="flex flex-1 flex-col">
@@ -117,7 +117,7 @@ const SupplierDetailDialog = ({
               name={"phone"}
               control={control}
               render={({ field }) => (
-                <Input.Wrapper required id={"phone"} label={"Phone Number"}>
+                <Input.Wrapper required id={"phone"} label={"Số điện thoại"}>
                   <Input
                     component={MaskedInput}
                     mask={PhoneNumberMask}
@@ -142,10 +142,10 @@ const SupplierDetailDialog = ({
             <FormErrorMessage errors={errors} name={"email"} />
 
             <Textarea
-              label={"Address"}
+              label={"Địa chỉ"}
               autosize={false}
               rows={4}
-              placeholder={"supplier address..."}
+              placeholder={"Nhập địa chỉ..."}
               required
               {...register("address")}
             ></Textarea>
@@ -155,7 +155,7 @@ const SupplierDetailDialog = ({
           <div className="mt-4 flex w-full justify-end">
             <DialogDetailAction
               mode={mode}
-              isDirty={isDirty}
+              isDirty={isDirty && Object.keys(dirtyFields).length > 0}
               isValid={isValid}
             />
           </div>

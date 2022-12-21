@@ -29,7 +29,7 @@ const ManageManager: AppPageInterface = () => {
   const {
     pageSize,
     currentPage,
-    totalRecord,
+    totalPage,
     update: updatePagination,
   } = usePaginationHook();
 
@@ -119,7 +119,7 @@ const ManageManager: AppPageInterface = () => {
           color={"green"}
           onClick={() => openModal("create")}
         >
-          New Account
+          Tạo tài khoản
         </Button>
 
         {modal && modal.mode === "create" && (
@@ -139,7 +139,7 @@ const ManageManager: AppPageInterface = () => {
         {/*Search by name*/}
         <Input
           icon={<IconSearch />}
-          placeholder={"Tên quản lý..."}
+          placeholder={"Tên người dùng..."}
           type={"text"}
           className="w-56"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -208,7 +208,7 @@ const ManageManager: AppPageInterface = () => {
         position={"center"}
         page={currentPage}
         onChange={(page) => updatePagination({ newPage: page })}
-        total={totalRecord / pageSize}
+        total={totalPage}
       ></Pagination>
     </div>
   );

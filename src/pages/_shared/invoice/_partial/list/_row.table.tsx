@@ -29,7 +29,7 @@ export default function RowTable(props: RowProps) {
       className={"cursor-pointer"}
       onClick={() => props.onSelect && props.onSelect(props.data)}
     >
-      <td className="text-center">{props.no}</td>
+      <td className="text-center">{props.data.id}</td>
       <td onClick={() => clipboard.copy(props.data.customer.name)}>
         <div className="flex flex-col">
           <div className="overflow-hidden text-ellipsis whitespace-nowrap">

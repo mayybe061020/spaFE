@@ -12,10 +12,10 @@ const ListHeaderTable = () => {
       <thead>
         <tr>
           <th className={"!text-center"}>No.</th>
-          <th>Name</th>
-          <th className={"!text-center"}>Gender</th>
-          <th className={"!text-center"}>Phone</th>
-          <th className={"!text-center"}>Date of Birth</th>
+          <th>Tên</th>
+          <th className={"!text-center"}>Giới tính</th>
+          <th className={"!text-center"}>Số điện thoại</th>
+          <th className={"!text-center"}>Ngày sinh</th>
         </tr>
       </thead>
     </>
